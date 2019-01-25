@@ -20,7 +20,6 @@ class Solution:
 
             if lowerEdge > level:
                 level = lowerEdge
-            
             water += level - lowerEdge
 
         return water
