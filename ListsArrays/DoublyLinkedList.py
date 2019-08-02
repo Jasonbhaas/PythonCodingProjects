@@ -2,16 +2,16 @@ import threading
 
 
 class DoubleLinkedListNode(object):
-    def __init__(self, next, previous, key):
-        self.next = next
-        self.previous = previous
+    def __init__(self, key, next=None, previous=None):
+        self.next = next if next else self
+        self.previous = previous if previous else self
         self.key = key
 
 
 class DoubleLinkedList(object):
     def __init__(self, max_size, key):
         # root of the circular doubly linked list
-        self.head = DoubleLinkedListNode(None, None, key)
+        self.head = DoubleLinkedListNode(key)
         # each linked list entry wil go [previous, next, key]
         # LRU Protocol, the head is the most recently used, head.previous is the least recently used
         self.node_lookup = {}  # to allow for quick lookup
@@ -38,11 +38,11 @@ class DoubleLinkedList(object):
     def Add_To_List(self, key):
         node = self.node_lookup.get(key)
         if node is not None:  # no eviction required, just call Track
-            self.Track(key)
+            self.Move_To_Front(key)
             return None
         elif self.size < self.max_size:  # List is not at capacity, eviction not required
             with threading.RLock():
-                node = DoubleLinkedListNode(None, None, key)
+                node = DoubleLinkedListNode(key)
                 last_node = self.head.previous
                 last_node.next = self.head.previous = node
                 node.previous = last_node
@@ -64,10 +64,11 @@ class DoubleLinkedList(object):
     def Print_List(self):
         PREV, NEXT, KEY = 0, 1, 2  # give names to the indexes
         node = self.head
-        # print(node[KEY] + " --> ")
+        result = []
         while node.next != self.head:
-            print(node[KEY] + " --> ")
+            result.append[node.key + " --> "]
             node = node.next
+        print("".join(result) + node.key)
 
 
 testList = DoubleLinkedList(10, "First Key")
