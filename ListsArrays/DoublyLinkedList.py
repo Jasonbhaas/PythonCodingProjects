@@ -17,7 +17,7 @@ class DoubleLinkedList(object):
         self.node_lookup = {}  # to allow for quick lookup
         self.node_lookup[key] = self.head
         self.max_size = max_size
-        self.size = 0
+        self.size = 1
 
     def Move_To_Front(self, key):
         # Link should already exists, so we will move it to the front of the list
@@ -57,25 +57,37 @@ class DoubleLinkedList(object):
                 last_node = self.head.previous
                 key_to_evict = last_node.key
                 last_node.key = key
-                self.head = node_lookup[key] = last_node
-                del(node_lookup[key_to_evict])
+                self.head = self.node_lookup[key] = last_node
+                del(self.node_lookup[key_to_evict])
                 return key_to_evict
 
     def Print_List(self):
-        PREV, NEXT, KEY = 0, 1, 2  # give names to the indexes
         node = self.head
         result = []
         while node.next != self.head:
-            result.append[node.key + " --> "]
+            result.append(node.key + " --> ")
             node = node.next
         print("".join(result) + node.key)
 
 
-testList = DoubleLinkedList(10, "First Key")
+testList = DoubleLinkedList(4, "First Key")
 testList.Add_To_List("Second Key")
 testList.Add_To_List("Third Key")
 testList.Add_To_List("Fourth Key")
+testList.Print_List()
+
 testList.Add_To_List("Fith Key")
 testList.Add_To_List("Sixth Key")
+testList.Print_List()
 
+testList.Move_To_Front("Third Key")
+testList.Print_List()
+
+testList.Add_To_List("Seventh Key")
+testList.Print_List()
+
+testList.Add_To_List("Fifth Key")
+testList.Print_List()
+
+testList.Add_To_List("Fifth Key")
 testList.Print_List()
