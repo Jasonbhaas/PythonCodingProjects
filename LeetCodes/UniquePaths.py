@@ -1,22 +1,12 @@
 def uniquePaths(m: int, n: int) -> int:
-    paths = 0
+    paths_from = [[1] * m for _ in range(n)]
 
-    def DFS(row, col):
-        if row >= n or col >= m:
-            return
-        else:
-            if row == n-1 and col == m-1:
-                nonlocal paths
-                paths += 1
-                return
-            else:
-                # explore to right
-                DFS(row, col+1)
-                # explore down
-                DFS(row + 1, col)
+    for row in range(n-2, -1, -1):
+        for col in range(m - 2, -1, -1):
+            paths_from[row][col] = paths_from[row + 1][col] + \
+                paths_from[row][col + 1]
 
-    DFS(0, 0)
-    return paths
+    return paths_from[0][0]
 
 
 print(uniquePaths(7, 3))
