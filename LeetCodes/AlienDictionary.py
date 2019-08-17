@@ -1,9 +1,9 @@
-def isAlienSorted(self, words: List[str], order: str) -> bool:
-    d = {}  # for easy lookup of character's ranking
-    for i in range(len(order)):
+def isAlienSorted(words, order)
+  d = {}  # for easy lookup of character's ranking
+   for i in range(len(order)):
         d[order[i]] = i
 
-    def w1_greater_than_w2(w1, w2, d):
+    def w1_greater_than_w2(w1, w2):
         min_len = min(len(w1), len(w2))
         for i in range(min_len):
             c1 = w1[i]
