@@ -1,6 +1,6 @@
-def isAlienSorted(words, order)
-  d = {}  # for easy lookup of character's ranking
-   for i in range(len(order)):
+def isAlienSorted(words, order):
+    d = {}  # for easy lookup of character's ranking
+    for i in range(len(order)):
         d[order[i]] = i
 
     def w1_greater_than_w2(w1, w2):
